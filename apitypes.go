@@ -116,6 +116,27 @@ type File struct {
 	FileInfo      map[string]string `json:"fileInfo"`
 }
 
+// PartialLargeFile describes a large file that has begun being uploaded, but
+// is not necessarily finished. Note that B2 has a different API for large
+// files (which require separate calls to upload each chunk) than for small
+// files
+type PartialLargeFile struct {
+	ID              string            `json:"fileId"`
+	Name            string            `json:"fileName"`
+	AccountID       string            `json:"accountId"`
+	BucketID        string            `json:"bucketId"`
+	ContentType     string            `json:"contentType"`
+	FileInfo        map[string]string `json:"fileInfo"`
+	UploadTimeStamp int64             `json:"uploadTimestamp"`
+}
+
+type startLargeFileRequest struct {
+	BucketID    string            `json:"bucketId"`
+	Name        string            `json:"fileName"`
+	ContentType string            `json:"contentType"`
+	FileInfo    map[string]string `json:"fileInfo"`
+}
+
 type listFilesRequest struct {
 	BucketID      string `json:"bucketId"`
 	StartFileName string `json:"startFileName"`

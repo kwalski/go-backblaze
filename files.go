@@ -384,3 +384,21 @@ func (b *Bucket) HideFile(fileName string) (*FileStatus, error) {
 
 	return response, nil
 }
+
+// StartLargeFile is used to initiate a transfer of a large file (i.e. a file larger than 10 GB)
+func (b *Bucket) StartLargeFile(fileName, contentType string, meta map[string]string, file io.Reader) (*PartialLargeFile, error) {
+	request := &startLargeFileRequest{
+		BucketID:    b.ID,
+		Name:        fileName,
+		ContentType: contentType,
+		FileInfo:    meta,
+	}
+
+	response := &PartialLargeFile{}
+
+	if err := b.b2.apiRequest("b2_get_file_info", request, response); err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}
