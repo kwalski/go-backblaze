@@ -194,7 +194,7 @@ type FileStatus struct {
 //request to get an authToken to download fileNamePrefix
 type AuthorizedDownloadUrlRequest struct {
 	BucketID 	string `json:"bucketId"`
-	FileNamePrefix  string `json:"filePath"`
+	FileNamePrefix  string `json:"fileNamePrefix"`
 	ValidDurationInSeconds int `json:"validDurationInSeconds"`
 }
 
