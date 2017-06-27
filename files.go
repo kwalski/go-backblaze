@@ -228,7 +228,7 @@ func (b *Bucket) AuthorizedDownloadUrl(filePath string) (string, string, error){
 		return "", "", err
 	}
 
-	fileURL, _, err := b.internalFileURL(fileName)
+	fileUrl, _, err := b.internalFileURL(filePath)
 	return fileUrl, response.AuthorizationToken, err
 }
 
