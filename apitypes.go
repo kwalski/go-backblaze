@@ -190,3 +190,17 @@ type FileStatus struct {
 	Size            int    `json:"size"`
 	UploadTimestamp int64  `json:"uploadTimestamp"`
 }
+
+//request to get an authToken to download fileNamePrefix
+AuthorizedDownloadUrlRequest{
+	BucketID 	string `json:"bucketId"`
+	FileNamePrefix  string `json:"filePath"`
+	ValidDurationInSeconds int `json:"validDurationInSeconds"`
+}
+
+//response with authorization token for fileNamePrefix
+type AuthorizedDownloadUrlResponse struct {
+	BucketID          string `json:"bucketId"`
+	FileNamePrefix    string `json:"fileNamePrefix"`
+	AuthorizationToken string `json:"authorizationToken"`
+}
