@@ -220,7 +220,7 @@ func (b *Bucket) AuthorizedDownloadUrl(filePath string) (string, string, error){
 	 request := &AuthorizedDownloadUrlRequest{
 		BucketID:      b.ID,
 		FileNamePrefix: filePath,
-		ValidDurationInSeconds:604800 //1 week
+		ValidDurationInSeconds:604800, //1 week
 	}
 	response := &AuthorizedDownloadUrlResponse{}
 
