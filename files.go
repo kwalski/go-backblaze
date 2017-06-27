@@ -215,6 +215,23 @@ func (b *Bucket) internalFileURL(fileName string) (string, *authorizationState, 
 	return b.b2.auth.DownloadURL + "/file/" + b.Name + "/" + fileName, b.b2.auth, nil
 }
 
+//token authorized to download specific file path returns download url, authToken, err
+func (b *Bucket) AuthorizedDownloadUrl(filePath string) (string, string, error){
+	 request := &AuthorizedDownloadUrlRequest{
+		BucketID:      b.ID,
+		FileNamePrefix: filePath,
+		ValidDurationInSeconds:604800 //1 week
+	}
+	response := &AuthorizedDownloadUrlResponse{}
+
+	if err := b.b2.apiRequest("b2_get_download_authorization", request, response); err != nil {
+		return "", "", err
+	}
+
+	fileURL, _, err := b.internalFileURL(fileName)
+	return fileUrl, response.AuthorizationToken, err
+}
+
 // DownloadFileByName Downloads one file by providing the name of the bucket and the name of the
 // file.
 func (b *Bucket) DownloadFileByName(fileName string) (*File, io.ReadCloser, error) {
